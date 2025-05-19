@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Hello World</h1>
+    <h2 id="searchEndTime">検索終了時刻:</h2>
+    <h2 id="searchData">検索結果:</h2>
+
+    <button id="search">検索</button>
+
+<script>
+    search();
+
+    document.querySelector("#search").addEventListener("click", () => {
+        search();
+    });
+
+    function search() {
+        fetch("/hello/search", {
+            method: "POST"
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.text();
+        })
+        .then(data => {
+            const searchEndTimeElement = document.querySelector("#searchEndTime");
+            searchEndTimeElement.innerText = "検索終了時刻:" + new Date().toLocaleString();
+
+            const searchDataElement = document.querySelector("#searchData");
+            searchDataElement.innerText = "検索結果:" + data;
+            
+        });
+    }
+</script>
+</body>
+</html>
