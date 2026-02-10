@@ -1,0 +1,15 @@
+spring:
+    application:
+        name: demo
+    datasource:
+        url: jdbc:oracle:thin:@localhost:1521/xepdb2
+        username: pdbadmin
+        password: password
+        driver-class-name: oracle.jdbc.OracleDriver
+
+# MyBatis 設定
+mybatis:
+    mapper-locations: classpath:mapper/*.xml
+    type-aliases-package: com.example.demo.model
+    configuration:
+        map-underscore-to-camel-case: true
